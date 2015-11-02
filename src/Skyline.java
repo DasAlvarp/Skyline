@@ -70,6 +70,18 @@ public class Skyline
         return or;
     }
 
+    public String toGraph()//to display stuff for me.
+    {
+        String or = "";
+        for(int x = 0; x < outline.size(); x++)
+        {
+            or += outline.get(x).toString();
+        }
+
+        return or;
+    }
+
+
     private SkyRay split(LinkedList<City> chop)//cuts one linkedList into two
     {
         LinkedList<City> s1 = new LinkedList<>();

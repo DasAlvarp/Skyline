@@ -26,6 +26,7 @@ public class Skylain
         else
             sky.mergeRecursive();
 
+        System.out.print(sky.toGraph());
         System.out.print(sky.toString());
     }
 }

@@ -28,8 +28,8 @@ public class DataSets
                 int l = scanMan.nextInt();
                 int h = scanMan.nextInt();
                 int r = scanMan.nextInt();
-                crowdedSky.add(new City(l, h, r));//so that things are ending on this one.Not sure if I interpreted the input right,
-                // I interpreted that 2, 4, 5 means that pt 2 has height 4, pt 3 has height 4, point 4 has height 4, and nobody knows what height pt 5 has.
+                crowdedSky.add(new City(l, h, r + 1));//so that things are ending on this one.Not sure if I interpreted the input right,
+                // I interpreted that 2, 4, 5 means that pt 2 has height 4, pt 3 has height 4, point 4 has height 4, and pt 5 has height 5
             }
         }
         catch (FileNotFoundException e)

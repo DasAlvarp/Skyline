@@ -72,12 +72,12 @@ public class City
     @Override
     public String toString()
     {
-        String theBase = "!";
+        String theBase = "";
         for (int x = 0; x < fullSky.size(); x++)
         {
-            theBase += ", " + fullSky.get(x);
+            theBase += x + "," + fullSky.get(x) + "\n";
         }
-        theBase += ";\n";
+        theBase += "\n";
         return theBase;
 
     }
