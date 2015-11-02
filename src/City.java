@@ -12,21 +12,20 @@ public class City
     It also makes in seem kinda stupid. But whatever.
      */
     LinkedList<Integer> fullSky = new LinkedList<Integer>();
-    int left;
     //merges 2 spikes into an array, with 0's until the first left.
     public City(int l, int h, int r)//filling list with H's.
     {
+        for(int x = 0; x < l; x++)
+            fullSky.add(0);
         for(int x = 0; x < r - l; x++)
         {
             fullSky.add(h);
         }
-        left = l;
     }
 
     //creates a city the obious way
-    public City(int l, LinkedList<Integer> skyline)
+    public City(LinkedList<Integer> skyline)
     {
-        left = l;
         fullSky = skyline;
     }
 
@@ -34,52 +33,42 @@ public class City
     //combines two city skylines into one. Probably janky as hell.
     public City merge(City theSecond)
     {
-        int newLeft;
-        int newRight;
 
-        //there are effectively 4 sections to each combination. So yeah.
-        if(theSecond.left < left)//find leftmost part
-        {
-            newLeft = theSecond.left;
-        }
-        else
-        {
-            newLeft = left;
 
-        }
-
-        //finding faruthes right sinde of the thing.
-        if(theSecond.fullSky.size() + theSecond.left > left + fullSky.size())
-        {
-            newRight = theSecond.left + theSecond.fullSky.size();
-        }
-        else
-        {
-            newRight = left + fullSky.size();
-        }
-
-        //add the thigmgs to the linkedlist
         LinkedList<Integer> significant = new LinkedList<>();
-        int comparisons[] = new int[2];
-        for(int x = newLeft; x < newRight; x++)
+
+        int comp;
+        if(fullSky.size() >theSecond.fullSky.size())
+            comp = fullSky.size();
+        else
+            comp = theSecond.fullSky.size();
+
+        int comparisons[] = {0,0};
+        for(int x = 0; x < comp; x++)
         {
-            comparisons[0] = 0;
-            comparisons[1] = 0;
-            if(theSecond.left > newLeft)
-            {
-                if(theSecond.fullSky.size() > x - newLeft)
-                    comparisons[0] = theSecond.fullSky.get(x - newLeft);
-            }
-            if(left > newLeft)
-            {
-                if(fullSky.size() > x - newLeft)
-                    comparisons[1] = fullSky.get(x - newLeft);
-            }
 
-
-            significant.add(compare(comparisons));
+            if(x >= theSecond.fullSky.size())
+            {
+                significant.add(fullSky.size());
+            }
+            else if(x >= fullSky.size())
+            {
+                significant.add(theSecond.fullSky.size());
+            }
+            else
+            {
+                if (theSecond.fullSky.get(x) > fullSky.get(x))
+                {
+                    significant.add(theSecond.fullSky.get(x));
+                }
+                else
+                {
+                    significant.add(fullSky.get(x));
+                }
+            }
         }
-        return new City(newLeft, significant);//guess what this does!
+
+        return new City(significant);//guess what this does!
     }
 
     //returns the greater value of 2 things in an array
@@ -95,7 +84,6 @@ public class City
     public String toString()
     {
         String theBase = "!";
-        theBase += left;
         for (int x = 0; x < fullSky.size(); x++)
         {
             theBase += ", " + fullSky.get(x);

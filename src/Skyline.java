@@ -43,7 +43,9 @@ public class Skyline
         }
         else
         {
-           return mergeRecursive(mergeRecursive(split(tempLine).get(0), split(tempLine).get(1)),mergeRecursive(split(line2).get(0),split(line2).get(1)));//kinda funky call here: basically, it splits it more.
+            LinkedList<City> left = mergeRecursive(split(tempLine).get(0), split(tempLine).get(1));
+            LinkedList<City> right = mergeRecursive(split(line2).get(0), split(line2).get(1));//kinda funky call here: basically, it splits it more.
+            return mergeRecursive(left, right);
         }
     }
 

@@ -10,6 +10,7 @@ public class Skylain
         DataSets boo = new DataSets();
         LinkedList<City> dood = boo.set(1);
         Skyline sky = new Skyline(dood);
-        System.out.print(sky.mergeRecursive());
+        sky = sky.mergeRecursive();
+        System.out.print(sky);
     }
 }
