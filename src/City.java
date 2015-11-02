@@ -22,93 +22,71 @@ public class City
         }
     }
 
+    //creates a city the obious way
     public City(int l, LinkedList<Integer> skyline)
     {
         left = l;
         fullSky = skyline;
     }
 
+
+    //combines two city skylines into one. Probably janky as hell.
     public City merge(City theSecond)
     {
-        City bigCity;
-        City smallCity;
         int newLeft;
-        int secondLeft;
         int newRight;
-        int secondRight;
+
         //there are effectively 4 sections to each combination. So yeah.
-        if(theSecond.left < left)
+        if(theSecond.left < left)//find leftmost part
         {
             newLeft = theSecond.left;
-            secondLeft = left;
-            bigCity = theSecond;
-            smallCity = this;
         }
         else
         {
             newLeft = left;
-            secondLeft = theSecond.left;
-            bigCity = this;
-            smallCity = theSecond;
+
         }
 
-        if(theSecond.fullSky.size() < fullSky.size())
+        //finding faruthes right sinde of the thing.
+        if(theSecond.fullSky.size() + theSecond.left > left + fullSky.size())
         {
-            newRight = fullSky.size() + this.left;
-            secondRight = theSecond.fullSky.size() + theSecond.left;
+            newRight = theSecond.left + theSecond.fullSky.size();
         }
         else
         {
-            newRight = theSecond.fullSky.size() + theSecond.left;
-            secondRight = fullSky.size() + this.left;
+            newRight = left + fullSky.size();
         }
 
-        int significantMidOrder[] = new int[2];
-        if(secondRight < secondLeft)
+        //add the thigmgs to the linkedlist
+        LinkedList<Integer> significant = new LinkedList<>();
+        int comparisons[] = new int[2];
+        for(int x = newLeft; x < newRight; x++)
         {
-            significantMidOrder[0] = secondRight;
-            significantMidOrder[1] = secondLeft;
-        }
-        else
-        {
-            significantMidOrder[0] = secondLeft;
-            significantMidOrder[1] = secondRight;
-        }
-
-
-        LinkedList<Integer> significant = new LinkedList<Integer>();
-
-        for(int x = 0; x < significantMidOrder[0]; x++)
-        {
-            significant.add(bigCity.fullSky.get(x));
-        }
-        for(int x = significantMidOrder[0]; x < significantMidOrder[1]; x++)
-        {
-            if(bigCity.fullSky.get(x) > this.fullSky.get(x - significantMidOrder[0]))
+            comparisons[0] = 0;
+            comparisons[1] = 0;
+            if(theSecond.left > newLeft)
             {
-                significant.add(bigCity.fullSky.get(x));
+                if(theSecond.fullSky.size() >= x - newLeft)
+                    comparisons[0] = theSecond.fullSky.get(x - newLeft);
             }
-            else
+            if(left > newLeft)
             {
-                significant.add(this.fullSky.get(x - significantMidOrder[0]));
+                if(fullSky.size() >= x - newLeft)
+                    comparisons[1] = fullSky.get(x - newLeft);
             }
-        }
-        if(bigCity.fullSky.size() > significantMidOrder[1])
-        {
-            for (int x = significantMidOrder[1]; x < newRight; x++)
-            {
-                significant.add(bigCity.fullSky.get(x));
-            }
-        }
-        else
-        {
-            for (int x = significantMidOrder[1]; x < newRight; x++)
-            {
-                significant.add(smallCity.fullSky.get(x - significantMidOrder[0]));
-            }
-        }
 
-        return new City(newLeft, significant);
 
+            significant.add(compare(comparisons));
+        }
+        return new City(newLeft, significant);//guess what this does!
+    }
+
+    //returns the greater value of 2 things in an array
+
+    private int compare(int[] compary)
+    {
+        if(compary[0] > compary[1])
+            return compary[0];
+        return compary[1];
     }
 }

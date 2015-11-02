@@ -8,6 +8,6 @@ public class Skylain
     public static void main(String[] args)
     {
         DataSets boo = new DataSets();
-        LinkedList<Spike> dood = boo.set(1);
+        LinkedList<City> dood = boo.set(1);
     }
 }
