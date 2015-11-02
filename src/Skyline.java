@@ -1,25 +1,17 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
  * Created by alvarpq on 11/2/15.
+ * Holds all the cities, and meshes them, ideally. Can hold n cities, n <= 0
  */
 public class Skyline
 {
     public LinkedList<City> outline = new LinkedList<>();//stores the all of the cities involved. Cities can be more than one skyline.
 
-    //constructor classes
+    //constructor class
     public Skyline(LinkedList<City> out)
     {
         outline = out;
-    }
-
-    public Skyline(City tCity)
-    {
-        LinkedList<City> ol = new LinkedList<>();
-
-        ol.add(tCity);
-        outline = ol;
     }
 
 
@@ -49,7 +41,7 @@ public class Skyline
 
     public LinkedList<City> mergeRecursive(LinkedList<City> tempLine, LinkedList<City> line2)
     {
-         if(tempLine.size() == 1 && line2.size() == 1)//2 things, so merge
+        if(tempLine.size() == 1 && line2.size() == 1)//2 things, so merge
         {
             LinkedList<City> tret = new LinkedList<>();//Makes base cases easier. Single-size linked list
             tret.add(tempLine.get(0).merge(line2.get(0)));
