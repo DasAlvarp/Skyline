@@ -11,7 +11,8 @@ public class City
     Measuring every point! We know the left point on the skyline, and we know every one in between. This makes merging skylines easy too.
     It also makes in seem kinda stupid. But whatever.
      */
-    LinkedList<Integer> fullSky = new LinkedList<Integer>();
+
+    LinkedList<Integer> fullSky = new LinkedList<>();
     //merges 2 spikes into an array, with 0's until the first left.
     public City(int l, int h, int r)//filling list with H's.
     {
@@ -33,27 +34,24 @@ public class City
     //combines two city skylines into one. Probably janky as hell.
     public City merge(City theSecond)
     {
-
-
         LinkedList<Integer> significant = new LinkedList<>();
 
         int comp;
-        if(fullSky.size() >theSecond.fullSky.size())
+        if(fullSky.size() > theSecond.fullSky.size())
             comp = fullSky.size();
         else
             comp = theSecond.fullSky.size();
 
-        int comparisons[] = {0,0};
         for(int x = 0; x < comp; x++)
         {
 
             if(x >= theSecond.fullSky.size())
             {
-                significant.add(fullSky.size());
+                significant.add(fullSky.get(x));
             }
             else if(x >= fullSky.size())
             {
-                significant.add(theSecond.fullSky.size());
+                significant.add(theSecond.fullSky.get(x));
             }
             else
             {
@@ -67,7 +65,6 @@ public class City
                 }
             }
         }
-
         return new City(significant);//guess what this does!
     }
 
@@ -91,5 +88,10 @@ public class City
         theBase += ";\n";
         return theBase;
 
+    }
+
+    public String toSpike()
+    {
+        return "";
     }
 }

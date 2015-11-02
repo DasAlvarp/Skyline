@@ -8,9 +8,12 @@ public class Skylain
     public static void main(String[] args)
     {
         DataSets boo = new DataSets();
-        LinkedList<City> dood = boo.set(1);
+        LinkedList<City> dood = boo.set(2);
+        System.out.println(dood.size());
         Skyline sky = new Skyline(dood);
-        sky = sky.mergeRecursive();
+
+        sky.mergeInductive();
         System.out.print(sky);
+        //System.out.print(sky.mergeRecursive());
     }
 }

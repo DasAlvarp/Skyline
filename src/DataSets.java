@@ -17,6 +17,7 @@ public class DataSets
             System.out.println("Not a valid data set.");
             return crowdedSky;
         }
+
         Scanner scanMan;
         try
         {
@@ -28,7 +29,7 @@ public class DataSets
                 int w = scanMan.nextInt();
                 int l = scanMan.nextInt();
                 crowdedSky.add(new City(h, w, l));
-                System.out.println(crowdedSky.getLast().toString() + ", " +crowdedSky.size());
+                System.out.println(crowdedSky.getLast().toString() + ", " + crowdedSky.size());
                 //scanMan.nextLine();
             }
         }

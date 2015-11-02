@@ -3,7 +3,7 @@ import java.util.LinkedList;
 /**
  * Created by alvarpq on 11/2/15.
  */
-public class SkyRay
+public class SkyRay //"Skyline array" of size 2, basically
 {
     private LinkedList<City> s1;
     private LinkedList<City> s2;

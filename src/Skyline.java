@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -14,8 +15,28 @@ public class Skyline
 
     public Skyline(City tCity)
     {
-        outline.add(tCity);
+        LinkedList<City> ol = new LinkedList<>();
+
+        ol.add(tCity);
+        outline = ol;
     }
+
+
+    public void mergeInductive()
+    {
+        City thefancyOne = outline.get(0);
+        for(int x = 1; x < outline.size(); x++)
+        {
+            thefancyOne = thefancyOne.merge(outline.get(x));
+
+        }
+
+        LinkedList<City> ol = new LinkedList<>();
+
+        ol.add(thefancyOne);
+        outline = ol;
+    }
+
 
     //divide and stuff.
     //merges 2 skylines by splitting it into more.
@@ -23,29 +44,39 @@ public class Skyline
     {
         return new Skyline(mergeRecursive(split(outline).get(0), split(outline).get(1)));
     }
+
     public LinkedList<City> mergeRecursive(LinkedList<City> tempLine, LinkedList<City> line2)
     {
-        LinkedList<City> tret = new LinkedList<>();//Makes base cases easier
-        if(tempLine.size() == 1 && line2.size() == 1)//2 things, so merge
+         if(tempLine.size() == 1 && line2.size() == 1)//2 things, so merge
         {
+            LinkedList<City> tret = new LinkedList<>();//Makes base cases easier
             tret.add(tempLine.get(0).merge(line2.get(0)));
             return tret;
         }
-        else if(tempLine.size() == 1)//just 1 is itself.
+        else if(tempLine.size() == 1 && line2.size() > 1)//just 1 is itself.
         {
-            tret.add(tempLine.get(0));//1, so combine with self
-            return tret;
+            return mergeRecursive(tempLine, mergeRecursive(split(line2).get(0), split(line2).get(1)));
         }
-        else if(line2.size() == 1)//just the other one.
+        else if(line2.size() == 1 && tempLine.size() > 1)//just the other one.
         {
-            tret.add(line2.get(0));
-            return tret;
+            return mergeRecursive(line2, mergeRecursive(split(tempLine).get(0), split(tempLine).get(1)));
         }
-        else
+        else if(tempLine.size() != 0 && line2.size() != 0)
         {
             LinkedList<City> left = mergeRecursive(split(tempLine).get(0), split(tempLine).get(1));
             LinkedList<City> right = mergeRecursive(split(line2).get(0), split(line2).get(1));//kinda funky call here: basically, it splits it more.
             return mergeRecursive(left, right);
+        }
+        else if(tempLine.size() == 0)
+        {
+            return line2;
+
+        }
+        else //if (line2.size() == 0)
+        {
+            System.out.println(" DOOT DOOT MOTHERFUCKER" + tempLine.size());
+
+            return tempLine;
         }
     }
 
@@ -56,7 +87,7 @@ public class Skyline
         {
             or += outline.get(x).toString();
         }
-        or += " doot";
+
         return or;
     }
 
