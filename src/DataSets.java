@@ -25,11 +25,11 @@ public class DataSets
             while (scanMan.hasNextLine())
             {
                 //System.out.println(scanMan.nextLine());
-                int h = scanMan.nextInt();
-                int w = scanMan.nextInt();
                 int l = scanMan.nextInt();
-                crowdedSky.add(new City(h, w, l));
-                System.out.println(crowdedSky.getLast().toString() + ", " + crowdedSky.size());
+                int h = scanMan.nextInt();
+                int r = scanMan.nextInt();
+                crowdedSky.add(new City(l, h, r));//so that things are ending on this one.Not sure if I interpreted the input right,
+                // I interpreted that 2, 4, 5 means that pt 2 has height 4, pt 3 has height 4, point 4 has height 4, and nobody knows what height pt 5 has.
                 //scanMan.nextLine();
             }
         }

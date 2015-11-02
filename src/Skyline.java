@@ -38,11 +38,13 @@ public class Skyline
     }
 
 
+
     //divide and stuff.
     //merges 2 skylines by splitting it into more.
-    public Skyline mergeRecursive()
+    public void mergeRecursive()
     {
-        return new Skyline(mergeRecursive(split(outline).get(0), split(outline).get(1)));
+        Skyline skydoot = new Skyline(mergeRecursive(split(outline).get(0), split(outline).get(1)));
+        outline = skydoot.outline;
     }
 
     public LinkedList<City> mergeRecursive(LinkedList<City> tempLine, LinkedList<City> line2)
@@ -61,22 +63,11 @@ public class Skyline
         {
             return mergeRecursive(line2, mergeRecursive(split(tempLine).get(0), split(tempLine).get(1)));
         }
-        else if(tempLine.size() != 0 && line2.size() != 0)
+        else
         {
             LinkedList<City> left = mergeRecursive(split(tempLine).get(0), split(tempLine).get(1));
             LinkedList<City> right = mergeRecursive(split(line2).get(0), split(line2).get(1));//kinda funky call here: basically, it splits it more.
             return mergeRecursive(left, right);
-        }
-        else if(tempLine.size() == 0)
-        {
-            return line2;
-
-        }
-        else //if (line2.size() == 0)
-        {
-            System.out.println(" DOOT DOOT MOTHERFUCKER" + tempLine.size());
-
-            return tempLine;
         }
     }
 
@@ -85,7 +76,7 @@ public class Skyline
         String or = "";
         for(int x = 0; x < outline.size(); x++)
         {
-            or += outline.get(x).toString();
+            or += outline.get(x).toSpike();
         }
 
         return or;
@@ -100,7 +91,7 @@ public class Skyline
         {
             s1.add(chop.get(x));
         }
-        for (int x = chop.size() / 2 + 1; x < chop.size(); x++)
+        for (int x = chop.size() / 2; x < chop.size(); x++)
         {
             s2.add(chop.get(x));
         }

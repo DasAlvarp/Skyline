@@ -92,6 +92,29 @@ public class City
 
     public String toSpike()
     {
-        return "";
+        //derp notation translator
+        int prevH = fullSky.get(0);
+        int prevPT = 0;
+        LinkedList<Integer> points = new LinkedList<>();
+        LinkedList<Integer> heights = new LinkedList<>();
+
+        for(int x = 0; x < fullSky.size(); x++)
+        {
+            if(fullSky.get(x) != prevH)
+            {
+                points.add(prevPT);
+                heights.add(prevH);
+                prevH = fullSky.get(x);
+                prevPT = x;
+            }
+        }
+        points.add(prevPT);
+        heights.add(prevH);
+        String out = "Points: ";
+        for(int x = 0; x < points.size(); x++)
+        {
+            out += points.get(x) + ", " + heights.get(x) + "; ";
+        }
+        return out;
     }
 }
