@@ -20,6 +20,7 @@ public class City
         {
             fullSky.add(h);
         }
+        left = l;
     }
 
     //creates a city the obious way
@@ -88,5 +89,19 @@ public class City
         if(compary[0] > compary[1])
             return compary[0];
         return compary[1];
+    }
+
+    @Override
+    public String toString()
+    {
+        String theBase = "";
+        theBase += left;
+        for (int x = 0; x < fullSky.size(); x++)
+        {
+            theBase += ", " + fullSky.get(x);
+        }
+        theBase += "\n";
+        return theBase;
+
     }
 }

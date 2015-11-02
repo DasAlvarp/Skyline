@@ -43,6 +43,15 @@ public class Skyline
         }
     }
 
+    public String toString()
+    {
+        String or = "";
+        for(int x = 0; x < outline.size(); x++)
+        {
+            or += outline.get(x).toString();
+        }
+        return or;
+    }
 
     private LinkedList<City>[] split(LinkedList<City> chop)//cuts it in half.
     {
