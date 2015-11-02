@@ -107,7 +107,7 @@ public class City
         {
             out += "(" + points.get(x) + ", " + heights.get(x) + ") ";
         }
-        out += fullSky.size() + " , 0;";//lenght of final one to mark as endpoint.
+        out += "(" + fullSky.size() + " , 0)";//lenght of final one to mark as endpoint.
         return out;
     }
 }
