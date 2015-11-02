@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.PrimitiveIterator;
 
 /**
  * Created by alvarpq on 11/2/15.
