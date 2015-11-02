@@ -8,15 +8,18 @@ public class Skylain
 {
     public static void main(String[] args)
     {
+        //Getting input
         Scanner scanMan = new Scanner(System.in);
         System.out.println("0 for inductive, 1 for divide and conquer");
         int type = scanMan.nextInt();
         System.out.println("What data set? (1-3 plz)");
         int set = scanMan.nextInt();
 
-        DataSets boo = new DataSets();
-        LinkedList<City> dood = boo.set(set);
-        Skyline sky = new Skyline(dood);
+        //dataSets is the object that retrives data from the sky.dat files
+        DataSets info = new DataSets();
+        LinkedList<City> cloudySky = info.set(set);
+
+        Skyline sky = new Skyline(cloudySky);//creating
 
         if(type == 0)
             sky.mergeInductive();
@@ -24,6 +27,5 @@ public class Skylain
             sky.mergeRecursive();
 
         System.out.print(sky.toString());
-        //System.out.print(sky.mergeRecursive());
     }
 }

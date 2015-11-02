@@ -8,7 +8,7 @@ public class City
 
     /*
     This uses my patentded "derpMode" skyline measuring system. Instead of worrying about efficency, we take the most intuitive method:
-    Measuring every point! We know the left point on the skyline, and we know every one in between. This makes merging skylines easy too.
+    Measuring every point! Each linkedList is full of 0's until they hit something that's not a 0. so 2, 4, 5 = 0444, and so on.
     It also makes in seem kinda stupid. But whatever.
      */
 
@@ -31,21 +31,22 @@ public class City
     }
 
 
-    //combines two city skylines into one. Probably janky as hell.
+    //combines two city skylines into one. Easy logic because of the data structure. Had a lot of trouble, so this is the one that got super-easy to make.
     public City merge(City theSecond)
     {
+        //to become the final skyline.
         LinkedList<Integer> significant = new LinkedList<>();
 
-        int comp;
+        int comp;//longest array
         if(fullSky.size() > theSecond.fullSky.size())
             comp = fullSky.size();
         else
             comp = theSecond.fullSky.size();
 
-        for(int x = 0; x < comp; x++)
+        for(int x = 0; x < comp; x++)//for both of the LL's.
         {
 
-            if(x >= theSecond.fullSky.size())
+            if(x >= theSecond.fullSky.size())//first two are if one of the ll's don't actually have elements b/c they're two small
             {
                 significant.add(fullSky.get(x));
             }
@@ -55,7 +56,7 @@ public class City
             }
             else
             {
-                if (theSecond.fullSky.get(x) > fullSky.get(x))
+                if (theSecond.fullSky.get(x) > fullSky.get(x))//if none of them are too small, compare sizes
                 {
                     significant.add(theSecond.fullSky.get(x));
                 }
@@ -65,16 +66,7 @@ public class City
                 }
             }
         }
-        return new City(significant);//guess what this does!
-    }
-
-    //returns the greater value of 2 things in an array
-
-    private int compare(int[] compary)
-    {
-        if(compary[0] > compary[1])
-            return compary[0];
-        return compary[1];
+        return new City(significant);//guess what this does! It merges!
     }
 
     @Override
@@ -93,12 +85,12 @@ public class City
     public String toSpike()
     {
         //derp notation translator
-        int prevH = fullSky.get(0);
+        int prevH = fullSky.get(0);//initial points. Apparently I'm supposed to start at 1, but...eh.
         int prevPT = 0;
         LinkedList<Integer> points = new LinkedList<>();
         LinkedList<Integer> heights = new LinkedList<>();
 
-        for(int x = 0; x < fullSky.size(); x++)
+        for(int x = 0; x < fullSky.size(); x++)//filling the point/height pairs
         {
             if(fullSky.get(x) != prevH)
             {
@@ -108,13 +100,14 @@ public class City
                 prevPT = x;
             }
         }
-        points.add(prevPT);
+        points.add(prevPT);//add last point/height pair for ending.
         heights.add(prevH);
         String out = "Points: ";
         for(int x = 0; x < points.size(); x++)
         {
             out += points.get(x) + ", " + heights.get(x) + "; ";
         }
+        out += fullSky.size() + " , 0;";//lenght of final one to mark as endpoint.
         return out;
     }
 }
