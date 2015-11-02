@@ -105,7 +105,7 @@ public class City
         String out = "Points: ";
         for(int x = 0; x < points.size(); x++)
         {
-            out += points.get(x) + ", " + heights.get(x) + "; ";
+            out += "(" + points.get(x) + ", " + heights.get(x) + ") ";
         }
         out += fullSky.size() + " , 0;";//lenght of final one to mark as endpoint.
         return out;
