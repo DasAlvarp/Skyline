@@ -9,9 +9,9 @@ import java.util.Scanner;
 
 public class DataSets
 {
-    public LinkedList<Spike> set(int num)
+    public LinkedList<City> set(int num)
     {
-        LinkedList<Spike> crowdedSky = new LinkedList<Spike>();
+        LinkedList<City> crowdedSky = new LinkedList<City>();
         if(num > 3 || num < 1)
         {
             System.out.println("Not a valid data set.");
@@ -27,7 +27,7 @@ public class DataSets
                 int h = scanMan.nextInt();
                 int w = scanMan.nextInt();
                 int l = scanMan.nextInt();
-                crowdedSky.add(new Spike(h, w, l));
+                crowdedSky.add(new City(h, w, l));
                 System.out.println(crowdedSky.getLast().toString() + ", " +crowdedSky.size());
                 //scanMan.nextLine();
             }

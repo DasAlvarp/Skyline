@@ -5,86 +5,99 @@ import java.util.LinkedList;
  */
 public class City
 {
-    LinkedList<Spike> fullSky;
-    int[] skyMax;
 
+    /*
+    This uses my patentded "derpMode" skyline measuring system. Instead of worrying about efficency, we take the most intuitive method:
+    Measuring every point! We know the left point on the skyline, and we know every one in between. This makes merging skylines easy too.
+    It also makes in seem kinda stupid. But whatever.
+     */
+    LinkedList<Integer> fullSky = new LinkedList<Integer>();
+    int left;
     //merges 2 spikes into an array, with 0's until the first left.
-    public int[] merge(Spike a, Spike b)
+    public City(int l, int h, int r)//filling list with H's.
     {
-        int left;
-        int right;
-        //finding left and rightmost significant points of both spikes
-        if (a.getLeft() < b.getLeft())
+        for(int x = 0; x < r - l; x++)
         {
-            left = a.getLeft();
+            fullSky.add(h);
+        }
+    }
+
+    public City(int l, LinkedList<Integer> skyline)
+    {
+        left = l;
+        fullSky = skyline;
+    }
+
+    public City merge(City theSecond)
+    {
+        City bigCity;
+        City smallCity;
+        int newLeft;
+        int secondLeft;
+        int newRight;
+        int secondRight;
+        //there are effectively 4 sections to each combination. So yeah.
+        if(theSecond.left < left)
+        {
+            newLeft = theSecond.left;
+            secondLeft = left;
+            bigCity = theSecond;
+            smallCity = this;
         }
         else
         {
-            left = b.getLeft();
+            newLeft = left;
+            secondLeft = theSecond.left;
+            bigCity = this;
+            smallCity = theSecond;
         }
 
-        if (a.getRight() > b.getRight())
+        if(theSecond.fullSky.size() < fullSky.size())
         {
-            right = a.getRight();
-        }
-        else
-        {
-            right = b.getRight();
-        }
-
-        //skyline array to be returned
-        int[] sketchLine = new int[right];
-
-        //fil leftmost parts with 0's
-        for (int x = 0; x < left; x++)
-        {
-            sketchLine[x] = 0;
-        }
-
-
-        int priority;
-
-        //set priority for higher spike
-        if(b.getHeight() > a.getHeight())
-        {
-            priority = b.getHeight();
+            newRight = fullSky.size() + this.left;
+            secondRight = theSecond.fullSky.size() + theSecond.left;
         }
         else
         {
-            priority = a.getHeight();
+            newRight = theSecond.fullSky.size() + theSecond.left;
+            secondRight = fullSky.size() + this.left;
         }
 
-        //setting heights by spike
-        for(int x = left; x < right; x++)
+        int significantMidOrder[] = new int[2];
+        if(secondRight < secondLeft)
         {
-            boolean both[] = {false, false};
+            significantMidOrder[0] = secondRight;
+            significantMidOrder[1] = secondLeft;
+        }
+        else
+        {
+            significantMidOrder[0] = secondLeft;
+            significantMidOrder[1] = secondRight;
+        }
 
-            if(x >= a.getLeft() && x <= a.getRight())
-            {
-                both[0] = true;
-            }
-            if(x >= b.getLeft() && x <= b.getRight())
-            {
-                both[1] = true;
-                if(!both[0])
-                {
-                    sketchLine[x] = b.getHeight();
-                }
-            }
 
-            if(both[0] && both[1])
+        LinkedList<Integer> significant = new LinkedList<Integer>();
+
+        for(int x = 0; x < significantMidOrder[0]; x++)
+        {
+            significant.add(bigCity.fullSky.get(x));
+        }
+        for(int x = significantMidOrder[0]; x < significantMidOrder[1]; x++)
+        {
+            if(bigCity.fullSky.get(x) > this.fullSky.get(x - significantMidOrder[0]))
             {
-                sketchLine[x] = priority;
-            }
-            else if (both[0] && !both[1])
-            {
-                sketchLine[x] = a.getHeight();
+                significant.add(bigCity.fullSky.get(x));
             }
             else
             {
-                sketchLine[x] = 0;
+                significant.add(this.fullSky.get(x - significantMidOrder[0]));
             }
         }
-        return sketchLine;
+        for(int x = significantMidOrder[1]; x < newRight; x++)
+        {
+
+        }
+
+
     }
 }
