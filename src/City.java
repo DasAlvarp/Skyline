@@ -67,12 +67,12 @@ public class City
             comparisons[1] = 0;
             if(theSecond.left > newLeft)
             {
-                if(theSecond.fullSky.size() >= x - newLeft)
+                if(theSecond.fullSky.size() > x - newLeft)
                     comparisons[0] = theSecond.fullSky.get(x - newLeft);
             }
             if(left > newLeft)
             {
-                if(fullSky.size() >= x - newLeft)
+                if(fullSky.size() > x - newLeft)
                     comparisons[1] = fullSky.get(x - newLeft);
             }
 
@@ -94,13 +94,13 @@ public class City
     @Override
     public String toString()
     {
-        String theBase = "";
+        String theBase = "!";
         theBase += left;
         for (int x = 0; x < fullSky.size(); x++)
         {
             theBase += ", " + fullSky.get(x);
         }
-        theBase += "\n";
+        theBase += ";\n";
         return theBase;
 
     }

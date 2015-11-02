@@ -19,12 +19,16 @@ public class Skyline
 
     //divide and stuff.
     //merges 2 skylines by splitting it into more.
+    public Skyline mergeRecursive()
+    {
+        return new Skyline(mergeRecursive(split(outline).get(0), split(outline).get(1)));
+    }
     public LinkedList<City> mergeRecursive(LinkedList<City> tempLine, LinkedList<City> line2)
     {
-        LinkedList<City> tret = new LinkedList<City>();//Makes base cases easier
+        LinkedList<City> tret = new LinkedList<>();//Makes base cases easier
         if(tempLine.size() == 1 && line2.size() == 1)//2 things, so merge
         {
-            tret.add(tempLine.get(0).merge(line2.get(1)));
+            tret.add(tempLine.get(0).merge(line2.get(0)));
             return tret;
         }
         else if(tempLine.size() == 1)//just 1 is itself.
@@ -39,7 +43,7 @@ public class Skyline
         }
         else
         {
-           return mergeRecursive(mergeRecursive(split(tempLine)[0], split(tempLine)[1]),mergeRecursive(split(line2)[0],split(line2)[1]));//kinda funky call here: basically, it splits it more.
+           return mergeRecursive(mergeRecursive(split(tempLine).get(0), split(tempLine).get(1)),mergeRecursive(split(line2).get(0),split(line2).get(1)));//kinda funky call here: basically, it splits it more.
         }
     }
 
@@ -50,22 +54,24 @@ public class Skyline
         {
             or += outline.get(x).toString();
         }
+        or += " doot";
         return or;
     }
 
-    private LinkedList<City>[] split(LinkedList<City> chop)//cuts it in half.
+    private SkyRay split(LinkedList<City> chop)//cuts it in half.
     {
-        LinkedList<City>[] skyHalves = new LinkedList[2];
+        LinkedList<City> s1 = new LinkedList<>();
+        LinkedList<City> s2 = new LinkedList<>();
 
         for (int x = 0; x < chop.size() / 2; x++)
         {
-            skyHalves[0].add(chop.get(x));
+            s1.add(chop.get(x));
         }
         for (int x = chop.size() / 2 + 1; x < chop.size(); x++)
         {
-            skyHalves[1].add(chop.get(x));
+            s2.add(chop.get(x));
         }
-        return skyHalves;
+        return new SkyRay(s1, s2);
     }
 
 }
