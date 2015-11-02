@@ -93,11 +93,22 @@ public class City
                 significant.add(this.fullSky.get(x - significantMidOrder[0]));
             }
         }
-        for(int x = significantMidOrder[1]; x < newRight; x++)
+        if(bigCity.fullSky.size() > significantMidOrder[1])
         {
-
+            for (int x = significantMidOrder[1]; x < newRight; x++)
+            {
+                significant.add(bigCity.fullSky.get(x));
+            }
+        }
+        else
+        {
+            for (int x = significantMidOrder[1]; x < newRight; x++)
+            {
+                significant.add(smallCity.fullSky.get(x - significantMidOrder[0]));
+            }
         }
 
+        return new City(newLeft, significant);
 
     }
 }
